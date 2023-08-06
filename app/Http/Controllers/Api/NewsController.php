@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\NewsActivity;
+use App\Exceptions\NullException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\StoreNewsRequest;
 use App\Http\Requests\News\UpdateNewsRequest;
@@ -38,6 +39,11 @@ class NewsController extends Controller
     public function getNewsDetailById(int $id){
         $news = $this->newsRepo->getOneBy('id', $id);
 
+        if(!$news){
+            return response()->json([
+                'data' => "News Not Found"
+            ], 404);
+        }
 
         return response()->json([
             'data' => $news
@@ -59,9 +65,7 @@ class NewsController extends Controller
         $news = News::find($id);
 
         if(!$news){
-            return response()->json([
-                "message" => "News Not Found",
-            ], 404);
+            throw new NullException("News Not Found", 404);
         }
 
         if($user->id !== $news->user_id){
@@ -83,9 +87,7 @@ class NewsController extends Controller
         $user = $request->user();
 
         if(!$news){
-            return response()->json([
-                "message" => "News Not Found",
-            ], 404);
+            throw new NullException("News Not Found", 404);
         }
 
         if($user->id !== $news->user_id){

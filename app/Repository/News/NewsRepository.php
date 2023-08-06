@@ -2,6 +2,7 @@
 namespace App\Repository\News;
 
 use App\Events\NewsActivity;
+use App\Exceptions\NullException;
 use App\Http\Resources\News\NewsCollection;
 use App\Http\Resources\News\NewsResource;
 use App\Models\News;
@@ -33,6 +34,10 @@ class NewsRepository implements NewsRepositoryInterface {
 
   public function getOneBy($column, $value){
     $news = News::with(['comment.user', 'author'])->where($column, $value)->first();
+
+    if(!$news){
+      throw new NullException("News Not Found", 404);
+    }
 
     return new NewsResource($news);
   }

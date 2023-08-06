@@ -7,8 +7,7 @@ use Exception;
 class NullException extends Exception
 {
     public function render(){
-        response()->json([
-            'statusCode' => $this->getCode(),
+        return response()->json([
             'message' => $this->getMessage()
         ], $this->getCode()); 
     }

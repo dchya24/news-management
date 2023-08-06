@@ -42,5 +42,3 @@ Route::middleware('auth:api')->group(function(){
 
     Route::post('comment', CommentController::class);
 });
-Route::get('', [NewsController::class, 'getNews']);
-Route::post('', [NewsController::class, 'createNews']);
