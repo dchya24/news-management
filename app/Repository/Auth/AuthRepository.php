@@ -80,7 +80,7 @@ class AuthRepository implements AuthRepositoryInterface {
 
   private function generateToken(User $user){
     $role = "admin";
-    $scopes = ['create-news', 'update-news', 'delete-news'];
+    $scopes = ['create-news', 'update-news', 'delete-news', 'create-comment'];
 
     if($user->is_admin != 1){
       $role = "user";
