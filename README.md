@@ -37,9 +37,23 @@
     php artisan passport:key
     ```
 
-7. Run Program
+7. Generate database seed
+
+    Generate admin user
+
+    ```bash
+    php artisan db:seed --class=UseerSeeder
+    ```
+
+    Generate Dummy Data
+
+    ```bash
+    php artisan db:seed
+    ```
+
+8. Run Program
 
 ## Postman Collection
 
-Postman Collecion for test project click [link](https://duckduckgo.com)
+Postman Collecion for test project click [link](https://www.postman.com/dchya24/workspace/public-work-space/collection/3528718-16768bff-0d15-4b85-a3db-4c0b35800757?action=share&creator=3528718)
 
