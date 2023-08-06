@@ -16,7 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->longText('content');
-            $table->string('photo');
+            $table->string('image');
+            $table->foreignId('user_id')
+                ->constrained('users', 'id')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
