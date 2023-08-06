@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\NewsActivity;
+use App\Exceptions\AccessForbiddenException;
 use App\Exceptions\NullException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\StoreNewsRequest;
@@ -69,9 +70,7 @@ class NewsController extends Controller
         }
 
         if($user->id !== $news->user_id){
-            return response()->json([
-                "message" => "Unauthorized",
-            ], 403);
+            throw new AccessForbiddenException("Access Forbidden for Update News", 403);
         }
 
         $news = $this->newsRepo->update($request, $news);
@@ -91,9 +90,7 @@ class NewsController extends Controller
         }
 
         if($user->id !== $news->user_id){
-            return response()->json([
-                "message" => "Unauthorized",
-            ], 403);
+            throw new AccessForbiddenException("Access Forbidden for Delete News", 403);
         }
 
         $news->delete();

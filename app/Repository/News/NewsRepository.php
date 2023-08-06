@@ -42,31 +42,6 @@ class NewsRepository implements NewsRepositoryInterface {
     return new NewsResource($news);
   }
 
-  public function store($type, $data){
-    if($type == "create"){
-      $data['image'] = ImageService::uploadFromRequest($data['newImage']);
-      $data['id'] = null;
-    }else if($type == "update"){
-      if(!empty($data['newImage'])){
-        ImageService::deleteImage($data['image']);
-        $data['image'] = ImageService::uploadFromRequest($data['newImage']);
-      }
-    }
-    
-    $news = DB::table('news')->updateOrInsert(
-      ['id' => $data['id']],
-      [
-        'title' => $data['title'],
-        'slug' => $data['slug'],
-        'content' => $data['content'],
-        'user_id' => $data['user_id'],
-        'image' => $data['image'],
-      ]
-    );
-
-    return $news;
-  }
-
   public function create(Request $request){
     $data = $request->only(['title', 'content']);
     $user = $request->user();
@@ -107,12 +82,5 @@ class NewsRepository implements NewsRepositoryInterface {
     event(new NewsActivity($news_id, $news->id, 'Update News'));
 
     return $news;
-  }
-
-  public function delete($id){
-    $deleted = News::destroy($id);
-
-
-    return true;
   }
 }

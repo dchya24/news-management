@@ -37,6 +37,16 @@ class AuthRepository implements AuthRepositoryInterface {
 
   public function register($data){
     try{
+      $checkUser = User::where('email', $data['email']);
+      if($checkUser){
+        return [
+          'error' => false,
+          'message' => 'Email Sudah digunakan',
+          'code' => 400,
+          "data" => null
+        ];
+      }
+
       $data['password'] = Hash::make($data['password']);
     
       $user = User::create($data);
