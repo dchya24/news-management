@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Repository\Auth\IAuthRepository;
+use App\Repository\Auth\AuthRepositoryInterface;
 
 class RegisterController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(RegisterRequest $request, IAuthRepository $IAuthRepository)
+    public function __invoke(RegisterRequest $request, AuthRepositoryInterface $IAuthRepository)
     {
-        $validated = $request->validated();
+        $request->validated();
         $data = $request->all();
 
         $result = $IAuthRepository->register($data);

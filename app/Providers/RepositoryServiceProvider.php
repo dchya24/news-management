@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Repository\Auth\AuthRepository;
-use App\Repository\Auth\IAuthRepository;
+use App\Repository\Auth\AuthRepositoryInterface;
+use App\Repository\News\NewsRepository;
+use App\Repository\News\NewsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -13,7 +15,8 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(IAuthRepository::class, AuthRepository::class);
+        $this->app->bind(AuthRepositoryInterface::class, AuthRepository::class);
+        $this->app->bind(NewsRepositoryInterface::class, NewsRepository::class);
     }
 
     /**

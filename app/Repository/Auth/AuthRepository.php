@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 
-class AuthRepository implements IAuthRepository {
+class AuthRepository implements AuthRepositoryInterface {
   public function login($email, $password){
     $user = User::where('email', $email)->first();
 

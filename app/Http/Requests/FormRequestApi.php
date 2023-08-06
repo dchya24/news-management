@@ -11,9 +11,16 @@ class FormRequestApi extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'success'   => false,
             'message'   => 'Validation errors',
             'data'      => $validator->errors()
         ]));
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new HttpResponseException(response()->json([
+            'message'   => 'Unauthorized',
+            'statusCode' => 403
+        ], 403));
     }
 }
