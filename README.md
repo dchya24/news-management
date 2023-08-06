@@ -5,7 +5,7 @@
 1. Clone project
 
     ```bash
-    git clone project-name
+    git clone https://github.com/dchya24/news-management.git project-name
     ```
 
 2. Copy .env.example with name .env
